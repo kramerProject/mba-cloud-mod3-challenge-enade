@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "enade-ingestion"
+spec:
+  containers:
+  - name: python-container
+    image: kramerscs/enade:1.1.1
+    imagePullPolicy: Always
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsUser: 0
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+      limits:
+        memory: "1Gi"
+        cpu: "1000m"
+    command: ["bash", "-c", "python3 -u /src/app/ingestion_job.py"]
+    envFrom:
+      - secretRef:
+          name: "aws-secret"

@@ -1,0 +1,66 @@
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: "enade-processing"
+  namespace: processing
+spec:
+  sparkConf:
+    extraJavaOptions: "-Dcom.amazonaws.services.s3.enableV4=true,-Divy.cache.dir=/tmp,-Divy.home=/tmp"
+    spark.executor.extraJavaOptions: "-Dcom.amazonaws.services.s3.enableV4=true"
+  hadoopConf:
+    fs.s3a.impl: "org.apache.hadoop.fs.s3a.S3AFileSystem"
+    fs.s3a.fast.upload: "true"
+  type: Python
+  pythonVersion: "3"
+  mode: cluster
+  image: kramerscs/enade:1.1.1
+  imagePullPolicy: Always
+  mainApplicationFile: local:///src/app/processing_job.py
+  sparkVersion: "3.1.1"
+  restartPolicy:
+    type: Never
+  driver:
+    cores: 1
+    coreRequest: '100m'
+    coreLimit: "500m"    
+    memory: "1024m"
+    labels:
+      version: 3.1.1
+    serviceAccount: spark
+    volumeMounts:
+      - name: ivy
+        mountPath: /tmp
+    envSecretKeyRefs:
+      AWS_ACCESS_KEY_ID:
+        name: aws-secret
+        key: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY:
+        name: aws-secret
+        key: AWS_SECRET_ACCESS_KEY
+      AWS_DEFAULT_REGION:
+        name: aws-secret
+        key: AWS_DEFAULT_REGION
+  executor:
+    cores: 1
+    coreRequest: '100m'
+    coreLimit: "1000m"    
+    instances: 2
+    memory: "1024m"
+    labels:
+      version: 3.1.1
+    volumeMounts:
+      - name: ivy
+        mountPath: /tmp
+    envSecretKeyRefs:
+      AWS_ACCESS_KEY_ID:
+        name: aws-secret
+        key: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY:
+        name: aws-secret
+        key: AWS_SECRET_ACCESS_KEY
+      AWS_DEFAULT_REGION:
+        name: aws-secret
+        key: AWS_DEFAULT_REGION
+  volumes:
+    - name: ivy
+      emptyDir: { }
