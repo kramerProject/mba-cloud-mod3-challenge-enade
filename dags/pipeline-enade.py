@@ -1,5 +1,4 @@
 
-from airflow.models import Variable
 from os import getenv, path
 from datetime import datetime
 from airflow import DAG
