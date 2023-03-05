@@ -18,7 +18,7 @@ import re
  
 def read_csv(spark: SparkSession, bucket: str, file_name: str) -> DataFrame:
     """Read CSV files from S3 bucket"""
-    print("Reading CSV for file", file)
+    print("Reading CSV for file", file_name)
     
     df = (
         spark
@@ -33,7 +33,7 @@ def read_csv(spark: SparkSession, bucket: str, file_name: str) -> DataFrame:
 
 def write_parquet(bucket: str, df: DataFrame, file_name: str) -> DataFrame:
     """Write PARQUET files to S3 bucket"""
-    print("Saving parquet for file", file)
+    print("Saving parquet for file", file_name)
     df_path = f"s3a://{bucket}/enade2017/{file_name}"
     print(f"Path: {df_path}")
     (
