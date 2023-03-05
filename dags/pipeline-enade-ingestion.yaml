@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: python-container
-    image: kramerscs/enade:1.1.1
+    image: kramerscs/enade:2.0.0
     imagePullPolicy: Always
     securityContext:
       allowPrivilegeEscalation: false

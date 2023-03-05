@@ -13,7 +13,7 @@ spec:
   type: Python
   pythonVersion: "3"
   mode: cluster
-  image: kramerscs/enade:1.1.1
+  image: kramerscs/enade:2.0.0
   imagePullPolicy: Always
   mainApplicationFile: local:///src/app/processing_job.py
   sparkVersion: "3.1.1"
