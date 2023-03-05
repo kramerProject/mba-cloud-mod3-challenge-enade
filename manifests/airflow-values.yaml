@@ -373,11 +373,11 @@ data:
 
 # Fernet key settings
 # Note: fernetKey can only be set during install, not upgrade
-fernetKey: HOC6Pmk68mmBj10lkMbUlLXvsBklSVo5SKw6GRYvQiw=
+fernetKey: ldamc8NMUp7Fhx8CPzrQe-JDHSYHYzA1WqyF8dri7qU=
 fernetKeySecretName: ~
 
 # Flask secret key for Airflow Webserver: `[webserver] secret_key` in airflow.cfg
-webserverSecretKey: e79562a82f5f8523685c9361af789131
+webserverSecretKey: ae8a3bd672ddc0b45994f631c1cd3f0b
 webserverSecretKeySecretName: ~
 
 # In order to use kerberos you need to create secret containing the keytab file
@@ -1784,7 +1784,7 @@ dags:
     # ssh examples ssh://git@github.com/apache/airflow.git
     # git@github.com:apache/airflow.git
     # https example: https://github.com/apache/airflow.git
-    repo: https://github.com/kramerProject/airflow-dags.git
+    repo: https://github.com/kramerProject/mba-cloud-mod3-challenge-enade.git
     branch: main
     rev: HEAD
     depth: 1
