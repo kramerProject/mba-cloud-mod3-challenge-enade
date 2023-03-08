@@ -34,7 +34,7 @@ def read_csv(spark: SparkSession, bucket: str, file_name: str) -> DataFrame:
 def write_parquet(bucket: str, df: DataFrame, file_name: str) -> DataFrame:
     """Write PARQUET files to S3 bucket"""
     print("Saving parquet for file", file_name)
-    df_path = f"s3a://{bucket}/enade2017/{file_name}"
+    df_path = f"s3a://{bucket}/enade2017"
     print(f"Path: {df_path}")
     (
         df
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     print(spark.version)
     print("Processing data from landing to processing")
     print("Reading Files!")
-    print("new message")
+    print("new messageeeeee eee")
     for file_name in parse_file_names(ENADE_FOLDER):
         print("saving.....-----", file_name)
         df = read_csv(spark, LANDING_BUCKET, file_name)
