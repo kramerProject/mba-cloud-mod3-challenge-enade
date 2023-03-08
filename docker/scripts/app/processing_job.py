@@ -45,13 +45,16 @@ def write_parquet(bucket: str, df: DataFrame, file_name: str) -> DataFrame:
     )
     return True
 
+
 if __name__ == "__main__":
     """Main ETL script definition."""
     spark = get_spark_session()
     print(spark.version)
     print("Processing data from landing to processing")
     print("Reading Files!")
+    print("new message")
     for file_name in parse_file_names(ENADE_FOLDER):
+        print("saving.....-----", file_name)
         df = read_csv(spark, LANDING_BUCKET, file_name)
         write_parquet(PROCESSING_BUCKET, df, file_name)
     print("Done!")
