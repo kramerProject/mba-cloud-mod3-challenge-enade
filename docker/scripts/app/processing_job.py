@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
     print("Processing data from landing to processing now now now. ")
     
-    df = read_csv(spark, LANDING_BUCKET, fl_name)
+    df = read_csv(spark, LANDING_BUCKET, "fl_name")
     print("Done ----->")
     print("Writing Dataframe!")
     write_parquet(PROCESSING_BUCKET, df, "abc")
