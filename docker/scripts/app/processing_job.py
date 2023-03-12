@@ -25,7 +25,8 @@ def read_csv(spark: SparkSession, bucket: str, file_name: str) -> DataFrame:
         .read
         .format("csv")
         .options(header='true', inferSchema='true', delimiter=';')
-        .load(f"s3a://{bucket}/enade2017/{file_name}")
+        .load(f"s3a://{bucket}/enade2017/*.txt")
+        .withColumn("file_name", f.input_file_name())
     )
     return df
 
@@ -33,7 +34,7 @@ def read_csv(spark: SparkSession, bucket: str, file_name: str) -> DataFrame:
 def write_parquet(bucket: str, df: DataFrame, directory_name: str) -> DataFrame:
     """Write PARQUET files to S3 bucket"""
     print("Saving parquet for file", directory_name)
-    df_path = f"s3a://{bucket}/enade2017/{directory_name}"
+    df_path = f"s3a://{bucket}/enade2017"
     print(f"Path: {df_path}")
     (
         df
@@ -53,12 +54,11 @@ if __name__ == "__main__":
     """Main ETL script definition."""
     spark = get_spark_session()
 
-    print("Processing data from landing to processing now. ")
+    print("Processing data from landing to processing now now now. ")
     
-    for fl_name in parse_file_names(ENADE_FOLDER):
-        df = read_csv(spark, LANDING_BUCKET, fl_name)
-        print("Done ----->", fl_name)
-        print("Writing Dataframe!")
-        write_parquet(PROCESSING_BUCKET, df, parse_directory_name(fl_name))
-        print("Done!")
+    df = read_csv(spark, LANDING_BUCKET, fl_name)
+    print("Done ----->")
+    print("Writing Dataframe!")
+    write_parquet(PROCESSING_BUCKET, df, "abc")
+    print("Done!")
     spark.stop()
