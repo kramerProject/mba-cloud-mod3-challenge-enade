@@ -54,9 +54,9 @@ if __name__ == "__main__":
     spark = get_spark_session()
 
     print("Processing data from landing to processing now. ")
-
+    
     for fl_name in parse_file_names(ENADE_FOLDER):
-        df = read_csv(spark, LANDING_BUCKET, "ddd")
+        df = read_csv(spark, LANDING_BUCKET, fl_name)
         print("Done ----->", fl_name)
         print("Writing Dataframe!")
         write_parquet(PROCESSING_BUCKET, df, parse_directory_name(fl_name))

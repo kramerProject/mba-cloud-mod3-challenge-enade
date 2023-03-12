@@ -13,3 +13,4 @@ RUN mkdir -p /src
 COPY ./scripts/ /src
 
 WORKDIR /src
+
